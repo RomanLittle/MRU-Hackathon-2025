@@ -1,25 +1,48 @@
 [gd_scene load_steps=4 format=3 uid="uid://ravqyhiui8r"]
 
-[ext_resource type="Script" uid="uid://cqmo5kixfy57f" path="res://P1_Character.gd" id="1_mdio2"]
-[ext_resource type="Texture2D" uid="uid://ruc84cx52ysv" path="res://icon.svg" id="2_qhke0"]
-[ext_resource type="Script" uid="uid://cyf7l2jf6s66" path="res://P2_Character.gd" id="3_qhke0"]
+[ext_resource type="PackedScene" uid="uid://cj388qs1rlbsb" path="res://Chain.tscn" id="5_71pwu"]
+[ext_resource type="PackedScene" uid="uid://c0wjgxc721ppi" path="res://RigidPlayer.tscn" id="6_71pwu"]
+[ext_resource type="Script" uid="uid://ctbh1yj18mamp" path="res://P2rigid_player.gd" id="6_a3twx"]
 
 [node name="Hehehe" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(509, 707)
-script = ExtResource("1_mdio2")
+[node name="rigidBodyPlayer2" parent="." instance=ExtResource("6_71pwu")]
+position = Vector2(424, 576)
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-texture = ExtResource("2_qhke0")
+[node name="rigidBodyPlayer1" parent="." instance=ExtResource("6_71pwu")]
+position = Vector2(424, 64)
+script = ExtResource("6_a3twx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="cainz2" type="Node2D" parent="."]
+position = Vector2(-144, 0)
 
-[node name="CharacterBody2D2" type="CharacterBody2D" parent="."]
-position = Vector2(693, 531)
-script = ExtResource("3_qhke0")
+[node name="PinJoint2D" type="PinJoint2D" parent="cainz2"]
+position = Vector2(568, 512)
+node_a = NodePath("../chainLink3")
+node_b = NodePath("../../rigidBodyPlayer2")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D2"]
-texture = ExtResource("2_qhke0")
+[node name="chainLink" parent="cainz2" instance=ExtResource("5_71pwu")]
+position = Vector2(568, 192)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2"]
+[node name="PinJoint2D2" type="PinJoint2D" parent="cainz2"]
+position = Vector2(568, 256)
+scale = Vector2(0.368783, 1.25672)
+node_a = NodePath("../chainLink")
+node_b = NodePath("../chainLink2")
+
+[node name="chainLink2" parent="cainz2" instance=ExtResource("5_71pwu")]
+position = Vector2(568, 320)
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="cainz2"]
+position = Vector2(568, 384)
+scale = Vector2(0.368783, 1.25672)
+node_a = NodePath("../chainLink2")
+node_b = NodePath("../chainLink3")
+
+[node name="chainLink3" parent="cainz2" instance=ExtResource("5_71pwu")]
+position = Vector2(568, 448)
+
+[node name="PinJoint2D4" type="PinJoint2D" parent="cainz2"]
+position = Vector2(568, 128)
+node_a = NodePath("../../rigidBodyPlayer1")
+node_b = NodePath("../chainLink")
